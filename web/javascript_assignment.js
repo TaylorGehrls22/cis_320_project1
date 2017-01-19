@@ -1,5 +1,5 @@
 //Part 1
-function helloFunction(event) {
+function helloFunction() {
 	console.log("Hello.");
 }
 
@@ -7,7 +7,7 @@ var formButton1 = $('#button1');
 formButton1.on("click", helloFunction);
 
 //Part 2
-function addingFunction(event) {
+function addingFunction() {
     var fieldValue1 = $('#field1').val();
     var fieldValue2 = $('#field2').val();
     var fieldValue3 = Number(fieldValue1) + Number(fieldValue2);
@@ -18,7 +18,7 @@ var formButton2 = $('#button2');
 formButton2.on("click", addingFunction);
 
 //Part 3
-function visibilityFunction(event) {
+function visibilityFunction() {
 	if($('#paragraphToHide').is(':visible')) 
 	{
 	    $("#paragraphToHide").hide(500);
@@ -34,7 +34,7 @@ formButton3.on("click", visibilityFunction);
 
 
 //Part 4
-function validateFunction(event) {
+function validateFunction() {
 	var v1 = $('#phoneField').val();
 	var reg = /^\d{3}-\d{3}-\d{4}$/;
 	if (reg.test(v1)) {
@@ -49,7 +49,7 @@ var formButton4 = $('#button4');
 formButton4.on("click", validateFunction);
 
 //Part 5
-function jsonFunction(event) {
+function jsonFunction() {
     var formObject = {};
 
     formObject.firstName = $('#firstName').val();

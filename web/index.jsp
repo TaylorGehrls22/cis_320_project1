@@ -31,10 +31,9 @@
 
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.html">Home</a></li>
+        <li class="active"><a href="index.jsp">Home</a></li>
         <li><a href="javascript_assignment.html">Javascript Assignment</a></li>
-        <li><a href="test_javascript.html">Test Javascript</a></li>
-        <li><a href="api/get_name_list">Name List JSON</a></li>
+        <li><a href="api/name_list_get">Name List JSON</a></li>
         <li><a href="name_list.html">Name List</a></li>
       </ul>
     </div>

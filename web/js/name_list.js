@@ -4,20 +4,25 @@ function updateTable() {
 
     $.getJSON(url, null, function(json_result)
         {
-            var outputTbl = document.getElementById('datatable');
-
             for (var i = 0; i < json_result.length; i++) {
-                var output = document.createElement("tr");
-                outputTbl.appendChild(output);
 
+                var id = json_result[i].id;
+                var firstName = json_result[i].firstName;
+                var lastName = json_result[i].lastName;
                 var phone = json_result[i].phone;
-                var phoneDash = phone.substr(0,3)+"-"+phone.substr(4,3)+"-"+phone.substr(6,6);
+                var birthday = json_result[i].birthday;
 
-                output.innerHTML += "<td>" + json_result[i].id + "</td>";
-                output.innerHTML += "<td>" + json_result[i].firstName + "</td>";
-                output.innerHTML += "<td>" + json_result[i].lastName + "</td>";
-                output.innerHTML += "<td>" + phoneDash + "</td>";
-                output.innerHTML += "<td>" + json_result[i].birthday + "</td>";
+                var phoneDash = phone.substr(0,3)+"-"+phone.substr(3,3)+"-"+phone.substr(6,4);
+
+                var row = "<tr>";
+                row += '<td>'+id+'</td>';
+                row += '<td>'+firstName+'</td>';
+                row += '<td>'+lastName+'</td>';
+                row += '<td>'+phoneDash+'</td>';
+                row += '<td>'+birthday+'</td>';
+                row += "</tr>";
+
+                $("#datatable tbody").append(row);
             }
         }
     )

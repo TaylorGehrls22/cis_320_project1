@@ -69,33 +69,33 @@
 
                 <form id="my-form">
                     <div class="form-group">
-                        <div id="idDiv" class="form-group has-feedback">
+<!--                        <div id="idDiv" class="form-group has-feedback">
                             <label class="control-label" for="id">ID:</label>
                             <input type="text" id="id" name="id" class="form-control" placeholder="ID" aria-describedby="idStatus"/>
                             <span id="idGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                            <span id="idStatus" class="sr-only"></span> <!-- Text goes in firstNameStatus for screen readers that can't see our icons. -->
-                        </div>
+                            <span id="idStatus" class="sr-only"></span> &lt;!&ndash; Text goes in firstNameStatus for screen readers that can't see our icons. &ndash;&gt;
+                        </div>-->
                         <div id="firstNameDiv" class="form-group has-feedback">
                             <label class="control-label" for="firstName">First Name:</label>
-                            <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" aria-describedby="firstNameStatus"/>
+                            <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" aria-describedby="firstNameStatus"/>
                             <span id="firstNameGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <span id="firstNameStatus" class="sr-only"></span> <!-- Text goes in firstNameStatus for screen readers that can't see our icons. -->
                         </div>
                         <div id="lastNameDiv" class="form-group has-feedback">
                             <label class="control-label" for="lastName">Last Name:</label>
-                            <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" aria-describedby="lastNameStatus"/>
+                            <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" aria-describedby="lastNameStatus"/>
                             <span id="lastNameGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <span id="lastNameStatus" class="sr-only"></span> <!-- Text goes in firstNameStatus for screen readers that can't see our icons. -->
                         </div>
                         <div id="phoneDiv" class="form-group has-feedback">
                             <label class="control-label" for="phone">Phone Number:</label>
-                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" aria-describedby="phoneStatus"/>
+                            <input type="text" id="phone" name="phone" class="form-control" placeholder="555-555-5555" aria-describedby="phoneStatus"/>
                             <span id="phoneGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <span id="phoneStatus" class="sr-only"></span> <!-- Text goes in firstNameStatus for screen readers that can't see our icons. -->
                         </div>
                         <div id="birthdayDiv" class="form-group has-feedback">
                             <label class="control-label" for="birthday">Birthday:</label>
-                            <input type="text" id="birthday" name="birthday" class="form-control" placeholder="Birthday" aria-describedby="birthdayStatus"/>
+                            <input type="text" id="birthday" name="birthday" class="form-control" placeholder="YYYY-MM-DD" aria-describedby="birthdayStatus"/>
                             <span id="birthdayGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <span id="birthdayStatus" class="sr-only"></span> <!-- Text goes in firstNameStatus for screen readers that can't see our icons. -->
                         </div>
@@ -105,7 +105,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="saveChanges" type="button" class="btn btn-primary">Save changes</button>
+                <form action="javascript:void(0);">
+                    <button id="jqueryPostButton" type="button" class="btn btn-primary">Save changes</button>
+                </form>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

@@ -1,17 +1,16 @@
 function updateTable()
 {
-
     var url = "api/name_list_get";
-
     $.getJSON(url, null, function(json_result)
         {
             for (var i = 0; i < json_result.length; i++) {
 
-                var id = json_result[i].id;
+                //ar id = json_result[i].id;
                 var firstName = json_result[i].firstName;
                 var lastName = json_result[i].lastName;
                 var phone = json_result[i].phone;
                 var birthday = json_result[i].birthday;
+                var id = i+1;
 
                 var phoneDash = phone.substr(0,3)+"-"+phone.substr(3,3)+"-"+phone.substr(6,4);
 
@@ -39,16 +38,16 @@ function showDialogAdd() {
     // Print that we got here
     console.log("Opening add item dialog");
 
-    $('#id').val("");
+    //$('#id').val("");
     $('#firstName').val("");
     $('#lastName').val("");
     $('#phone').val("");
     $('#birthday').val("");
 
-    $('#idDiv').removeClass("has-error");
+/*    $('#idDiv').removeClass("has-error");
     $('#idGlyph').removeClass("glyphicon-remove");
     $('#idDiv').removeClass("has-success");
-    $('#idGlyph').removeClass("glyphicon-ok");
+    $('#idGlyph').removeClass("glyphicon-ok");*/
 
     $('#firstNameDiv').removeClass("has-error");
     $('#firstNameGlyph').removeClass("glyphicon-remove");
@@ -74,12 +73,39 @@ function showDialogAdd() {
     $('#myModal').modal('show');
 }
 
+/*var saveChangesButton = $('#jqueryPostButton');
+saveChangesButton.on("click", validate);*/
 
-var saveChangesButton = $('#saveChanges');
-saveChangesButton.on("click", validate);
+<!-- AJAX Post -->
+function jqueryPostButtonAction() {
+    validate();
+    if (valid_form==true)
+    {
+        var url = "api/name_list_edit";
+        //var id = $("#id").val();
+        var firstName = $("#firstName").val();
+        var lastName = $("#lastName").val();
+        var phone = $("#phone").val();
+        var birthday = $("#birthday").val();
+        var dataToServer = {firstName : firstName,  lastName : lastName, phone : phone, birthday : birthday}
+        console.log(dataToServer);
 
-function validate(){
-    var idValidated = $('#id').val();
+        $.post(url, dataToServer, function (dataFromServer) {
+            console.log("Finished calling servlet.");
+            console.log(dataFromServer);
+        });
+    }
+}
+
+var jqueryPostButton = $('#jqueryPostButton');
+jqueryPostButton.on("click", jqueryPostButtonAction);
+
+var valid_form = true;
+
+function validate()
+{
+    valid_form = true;
+    /*var idValidated = $('#id').val();
     var idreg = /^\S[0-9]{0,10}$/;
     if (idreg.test(idValidated))
     {
@@ -107,8 +133,9 @@ function validate(){
 
         // Put in the field used by screen readers
         $('idStatus').val("(error)");
+        valid_form = false;
         console.log("ID Bad");
-    }
+    }*/
 
     var firstNameValidated = $('#firstName').val();
     var firstNameReg = /^\S[a-zA-Z\u00C0-\u017F\-'\s]{0,30}$/;
@@ -138,10 +165,11 @@ function validate(){
 
         // Put in the field used by screen readers
         $('firstNameStatus').val("(error)");
+        valid_form = false;
         console.log("First Name Bad");
     }
 
-var lastNameValidated = $('#lastName').val();
+    var lastNameValidated = $('#lastName').val();
     var lastNameReg = /^\S[a-zA-Z\u00C0-\u017F\-'\s]{0,30}$/;
     if (lastNameReg.test(lastNameValidated))
     {
@@ -169,6 +197,7 @@ var lastNameValidated = $('#lastName').val();
 
         // Put in the field used by screen readers
         $('lastNameStatus').val("(error)");
+        valid_form = false;
         console.log("Last Name Bad");
     }
 
@@ -200,6 +229,7 @@ var lastNameValidated = $('#lastName').val();
 
         // Put in the field used by screen readers
         $('phoneStatus').val("(error)");
+        valid_form = false;
         console.log("Phone Bad");
     }
 
@@ -231,6 +261,12 @@ var lastNameValidated = $('#lastName').val();
 
         // Put in the field used by screen readers
         $('birthdayStatus').val("(error)");
+        valid_form = false;
         console.log("Birthday Bad");
     }
+    if (valid_form == false)
+    {
+        console.log("Invalid user input.");
+    }
+
 }

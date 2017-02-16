@@ -55,6 +55,11 @@ public class NameListGet extends javax.servlet.http.HttpServlet {
             out.print(person.getLast());
             out.print("\",");
 
+            out.print("\"email\":");
+            out.print("\"");
+            out.print(person.getEmail());
+            out.print("\",");
+
             out.print("\"phone\":");
             out.print("\"");
             out.print(person.getPhone());

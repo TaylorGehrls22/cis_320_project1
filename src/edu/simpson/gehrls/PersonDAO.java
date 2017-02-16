@@ -28,17 +28,18 @@ public class PersonDAO {
             conn = DBHelper.getConnection();
 
             // This is a string that is our SQL query.
-            String sql = "insert into person (first, last, phone, birthday) values (?, ?, ?, ?)";
-            stmt.setString(1, person.getFirst());
-            stmt.setString(2, person.getLast());
-            stmt.setString(3, person.getPhone());
-            stmt.setString(4, person.getBirthday());
+            String sql = "insert into person (first, last, email, phone, birthday) values (?, ?, ?, ?, ?)";
 
             // Create an object with all the info about our SQL statement to run.
             stmt = conn.prepareStatement(sql);
+            stmt.setString(1, person.getFirst());
+            stmt.setString(2, person.getLast());
+            stmt.setString(3, person.getEmail());
+            stmt.setString(4, person.getPhone());
+            stmt.setString(5, person.getBirthday());
 
             // Execute the SQL and get the results
-            stmt.executeQuery();
+            stmt.executeUpdate();
         }
         catch (SQLException se) {
             log.log(Level.SEVERE, "SQL Error", se );
@@ -69,7 +70,7 @@ public class PersonDAO {
             conn = DBHelper.getConnection();
 
             // This is a string that is our SQL query.
-            String sql = "select id, first, last, phone, birthday from person";
+            String sql = "select id, first, last, email, phone, birthday from person";
 
             // Create an object with all the info about our SQL statement to run.
             stmt = conn.prepareStatement(sql);
@@ -86,6 +87,7 @@ public class PersonDAO {
                 person.setId(rs.getInt("id"));
                 person.setFirst(rs.getString("first"));
                 person.setLast(rs.getString("last"));
+                person.setEmail(rs.getString("email"));
                 person.setPhone(rs.getString("phone"));
                 person.setBirthday(rs.getString("birthday"));
 

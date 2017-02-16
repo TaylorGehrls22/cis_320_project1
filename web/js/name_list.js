@@ -3,21 +3,31 @@ function updateTable()
     var url = "api/name_list_get";
     $.getJSON(url, null, function(json_result)
         {
+
             for (var i = 0; i < json_result.length; i++) {
 
-                //ar id = json_result[i].id;
+                var id = json_result[i].id;
                 var firstName = json_result[i].firstName;
                 var lastName = json_result[i].lastName;
+                var email = json_result[i].email;
                 var phone = json_result[i].phone;
                 var birthday = json_result[i].birthday;
-                var id = i+1;
 
-                var phoneDash = phone.substr(0,3)+"-"+phone.substr(3,3)+"-"+phone.substr(6,4);
+                var phoneDash;
+                if (phone.indexOf('-') > -1)
+                {
+                    phoneDash = phone;
+                }
+                else
+                {
+                    phoneDash = phone.substr(0,3)+"-"+phone.substr(3,3)+"-"+phone.substr(6,4);
+                }
 
                 var row = "<tr>";
                 row += '<td>'+id+'</td>';
                 row += '<td>'+firstName+'</td>';
                 row += '<td>'+lastName+'</td>';
+                row += '<td>'+email+'</td>';
                 row += '<td>'+phoneDash+'</td>';
                 row += '<td>'+birthday+'</td>';
                 row += "</tr>";
@@ -30,6 +40,11 @@ function updateTable()
 // Call your code.
 updateTable();
 
+function clearTable()
+{
+    $("#datatable tbody tr").empty();
+}
+
 var addItemButton = $('#addItem');
 addItemButton.on("click", showDialogAdd);
 
@@ -38,16 +53,11 @@ function showDialogAdd() {
     // Print that we got here
     console.log("Opening add item dialog");
 
-    //$('#id').val("");
     $('#firstName').val("");
     $('#lastName').val("");
+    $('#email').val("");
     $('#phone').val("");
     $('#birthday').val("");
-
-/*    $('#idDiv').removeClass("has-error");
-    $('#idGlyph').removeClass("glyphicon-remove");
-    $('#idDiv').removeClass("has-success");
-    $('#idGlyph').removeClass("glyphicon-ok");*/
 
     $('#firstNameDiv').removeClass("has-error");
     $('#firstNameGlyph').removeClass("glyphicon-remove");
@@ -58,6 +68,11 @@ function showDialogAdd() {
     $('#lastNameGlyph').removeClass("glyphicon-remove");
     $('#lastNameDiv').removeClass("has-success");
     $('#lastNameGlyph').removeClass("glyphicon-ok");
+
+    $('#emailDiv').removeClass("has-error");
+     $('#emailGlyph').removeClass("glyphicon-remove");
+     $('#emailDiv').removeClass("has-success");
+     $('#emailGlyph').removeClass("glyphicon-ok");
 
     $('#phoneDiv').removeClass("has-error");
     $('#phoneGlyph').removeClass("glyphicon-remove");
@@ -73,21 +88,18 @@ function showDialogAdd() {
     $('#myModal').modal('show');
 }
 
-/*var saveChangesButton = $('#jqueryPostButton');
-saveChangesButton.on("click", validate);*/
-
 <!-- AJAX Post -->
 function jqueryPostButtonAction() {
     validate();
     if (valid_form==true)
     {
         var url = "api/name_list_edit";
-        //var id = $("#id").val();
         var firstName = $("#firstName").val();
         var lastName = $("#lastName").val();
+        var email = $("#email").val();
         var phone = $("#phone").val();
         var birthday = $("#birthday").val();
-        var dataToServer = {firstName : firstName,  lastName : lastName, phone : phone, birthday : birthday}
+        var dataToServer = {firstName : firstName,  lastName : lastName, email : email, phone : phone, birthday : birthday}
         console.log(dataToServer);
 
         $.post(url, dataToServer, function (dataFromServer) {
@@ -99,44 +111,14 @@ function jqueryPostButtonAction() {
 
 var jqueryPostButton = $('#jqueryPostButton');
 jqueryPostButton.on("click", jqueryPostButtonAction);
+jqueryPostButton.on("click", clearTable);
+jqueryPostButton.on("click", updateTable);
 
 var valid_form = true;
 
 function validate()
 {
     valid_form = true;
-    /*var idValidated = $('#id').val();
-    var idreg = /^\S[0-9]{0,10}$/;
-    if (idreg.test(idValidated))
-    {
-        // Set style for outline of form field
-        $('#idDiv').removeClass("has-error");
-        $('#idDiv').addClass("has-success");
-
-        // Set the icon for the form field
-        $('#idGlyph').removeClass("glyphicon-remove");
-        $('#idGlyph').addClass("glyphicon-ok");
-
-        // Put in the field used by screen readers
-        $('idStatus').val("(success)");
-        console.log("ID Ok");
-    }
-    else
-    {
-        // Set style for outline of form field
-        $('#idDiv').removeClass("has-success");
-        $('#idDiv').addClass("has-error");
-
-        // Set the icon for the form field
-        $('#idGlyph').removeClass("glyphicon-ok");
-        $('#idGlyph').addClass("glyphicon-remove");
-
-        // Put in the field used by screen readers
-        $('idStatus').val("(error)");
-        valid_form = false;
-        console.log("ID Bad");
-    }*/
-
     var firstNameValidated = $('#firstName').val();
     var firstNameReg = /^\S[a-zA-Z\u00C0-\u017F\-'\s]{0,30}$/;
     if (firstNameReg.test(firstNameValidated))
@@ -199,6 +181,38 @@ function validate()
         $('lastNameStatus').val("(error)");
         valid_form = false;
         console.log("Last Name Bad");
+    }
+
+    var emailValidated = $('#email').val();
+    var emailReg = /^[a-zA-Z0-9\.\-\_\@]{0,30}$/;
+    if (emailReg.test(emailValidated))
+    {
+        // Set style for outline of form field
+        $('#emailDiv').removeClass("has-error");
+        $('#emailDiv').addClass("has-success");
+
+        // Set the icon for the form field
+        $('#emailGlyph').removeClass("glyphicon-remove");
+        $('#emailGlyph').addClass("glyphicon-ok");
+
+        // Put in the field used by screen readers
+        $('emailStatus').val("(success)");
+        console.log("email Ok");
+    }
+    else
+    {
+        // Set style for outline of form field
+        $('#emailDiv').removeClass("has-success");
+        $('#emailDiv').addClass("has-error");
+
+        // Set the icon for the form field
+        $('#emailGlyph').removeClass("glyphicon-ok");
+        $('#emailGlyph').addClass("glyphicon-remove");
+
+        // Put in the field used by screen readers
+        $('emailStatus').val("(error)");
+        valid_form = false;
+        console.log("email Bad");
     }
 
     var phoneValidated = $('#phone').val();

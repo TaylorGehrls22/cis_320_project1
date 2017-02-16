@@ -22,19 +22,20 @@ public class NameListEdit extends HttpServlet {
         out.println("Post");
 
         // Grab the data we got via a parameter
-        String id = request.getParameter("id");
-        String first = request.getParameter("first");
-        String last = request.getParameter("last");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String birthday = request.getParameter("birthday");
 
         // Just print the data out to confirm we got it.
-        out.println("first='"+first+"'"+"last='"+last+"'"+"phone='"+phone+"'"
+        out.println("firstName='"+firstName+"'"+"lastName='"+lastName+"'"+"email='"+email+"'"+"phone='"+phone+"'"
             +"birthday='"+birthday+"'");
 
         Person person = new Person();
-        person.setFirst(first);
-        person.setLast(last);
+        person.setFirst(firstName);
+        person.setLast(lastName);
+        person.setEmail(email);
         person.setPhone(phone);
         person.setBirthday(birthday);
         PersonDAO.addPerson(person);
@@ -49,18 +50,20 @@ public class NameListEdit extends HttpServlet {
         out.println("Get");
 
         // Grab the data we got via a parameter
-        String first = request.getParameter("first");
-        String last = request.getParameter("last");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String birthday = request.getParameter("birthday");
 
         // Just print the data out to confirm we got it.
-        out.println("'"+"first='"+first+"'"+"last='"+last+"'"+"phone='"+phone+"'"
+        out.println("'"+"firstName='"+firstName+"'"+"lastName='"+lastName+"'"+"email='"+email+"'"+"phone='"+phone+"'"
                 +"birthday='"+birthday+"'");
 
         Person person = new Person();
-        person.setFirst("first");
-        person.setLast("last");
+        person.setFirst("firstName");
+        person.setLast("lastName");
+        person.setEmail("email");
         person.setPhone("phone");
         person.setBirthday("birthday");
         PersonDAO.addPerson(person);

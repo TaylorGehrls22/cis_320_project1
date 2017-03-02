@@ -1,9 +1,13 @@
+function deleteItem(e) {
+    console.debug("Delete");
+    console.debug(e.target.value);
+}
+
 function updateTable()
 {
-    var url = "api/name_list_get";
-    $.getJSON(url, null, function(json_result)
+    var urlGet = "api/name_list_get";
+    $.getJSON(urlGet, null, function(json_result)
         {
-
             for (var i = 0; i < json_result.length; i++) {
 
                 var id = json_result[i].id;
@@ -30,10 +34,13 @@ function updateTable()
                 row += '<td>'+email+'</td>';
                 row += '<td>'+phoneDash+'</td>';
                 row += '<td>'+birthday+'</td>';
+                row += "<td><button type='button' name='delete' class='editButton btn' value='" + id + "'>Delete</button></td>";
                 row += "</tr>";
-
                 $("#datatable tbody").append(row);
             }
+            var buttons = $(".editButton");
+            buttons.on("click", deleteItem);
+            buttons.on("click", jqueryPostDelete);
         }
     )
 }
@@ -45,11 +52,7 @@ function clearTable()
     $("#datatable tbody tr").empty();
 }
 
-var addItemButton = $('#addItem');
-addItemButton.on("click", showDialogAdd);
-
 function showDialogAdd() {
-
     // Print that we got here
     console.log("Opening add item dialog");
 
@@ -88,37 +91,12 @@ function showDialogAdd() {
     $('#myModal').modal('show');
 }
 
-<!-- AJAX Post -->
-function jqueryPostButtonAction() {
-    validate();
-    if (valid_form==true)
-    {
-        var url = "api/name_list_edit";
-        var firstName = $("#firstName").val();
-        var lastName = $("#lastName").val();
-        var email = $("#email").val();
-        var phone = $("#phone").val();
-        var birthday = $("#birthday").val();
-        var dataToServer = {firstName : firstName,  lastName : lastName, email : email, phone : phone, birthday : birthday}
-        console.log(dataToServer);
-
-        $.post(url, dataToServer, function (dataFromServer) {
-            console.log("Finished calling servlet.");
-            console.log(dataFromServer);
-        });
-    }
-}
-
-var jqueryPostButton = $('#jqueryPostButton');
-jqueryPostButton.on("click", jqueryPostButtonAction);
-jqueryPostButton.on("click", clearTable);
-jqueryPostButton.on("click", updateTable);
-
-var valid_form = true;
+var addItemButton = $('#addItem');
+addItemButton.on("click", showDialogAdd);
 
 function validate()
 {
-    valid_form = true;
+    var valid_form = true;
     var firstNameValidated = $('#firstName').val();
     var firstNameReg = /^\S[a-zA-Z\u00C0-\u017F\-'\s]{0,30}$/;
     if (firstNameReg.test(firstNameValidated))
@@ -278,9 +256,48 @@ function validate()
         valid_form = false;
         console.log("Birthday Bad");
     }
-    if (valid_form == false)
-    {
-        console.log("Invalid user input.");
-    }
-
+    return valid_form;
 }
+
+<!-- AJAX Post -->
+function jqueryPostAdd() {
+    if (validate()==true)
+    {
+        var url = "api/name_list_edit";
+        var firstName = $("#firstName").val();
+        var lastName = $("#lastName").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var birthday = $("#birthday").val();
+
+        var dataToServer = {firstName : firstName,  lastName : lastName, email : email, phone : phone, birthday : birthday}
+        console.log(dataToServer);
+
+        $.post(url, dataToServer, function (dataFromServer) {
+            console.log("Finished calling servlet.");
+            clearTable();
+            updateTable();
+            $('#myModal').modal('hide');
+            console.log(dataFromServer);
+        });
+    }
+}
+var jqueryPostButton = $('#jqueryPostButton');
+jqueryPostButton.on("click", jqueryPostAdd);
+
+function jqueryPostDelete(e) {
+        var url = "api/name_list_delete";
+        var id = e.target.value;
+
+        var dataToServer = {id : id}
+        console.log(dataToServer);
+
+        $.post(url, dataToServer, function (dataFromServer) {
+            console.log("Finished calling servlet.");
+            clearTable();
+            updateTable();
+            console.log(dataFromServer);
+        });
+}
+
+

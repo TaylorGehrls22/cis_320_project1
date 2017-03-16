@@ -38,6 +38,7 @@ public class NameListEdit extends HttpServlet {
         out.println("Post");
 
         // Grab the data we got via a parameter
+        String id = request.getParameter("id");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
@@ -63,7 +64,18 @@ public class NameListEdit extends HttpServlet {
             person.setPhone(phone);
             person.setBirthday(birthday);
 
-            PersonDAO.addPerson(person);
+            out.println(person);
+
+            if (id.equals(""))
+            {
+                PersonDAO.addPerson(person);
+            }
+            else
+            {
+                person.setId(Integer.parseInt(id));
+                PersonDAO.editPerson(person);
+            }
+
         } else {
             out.println("Did not pass validation");
         }

@@ -3,6 +3,11 @@ function deleteItem(e) {
     console.debug(e.target.value);
 }
 
+function editItem(e) {
+    console.debug("Edit");
+    console.debug(e.target.value);
+}
+
 function updateTable()
 {
     var urlGet = "api/name_list_get";
@@ -34,13 +39,17 @@ function updateTable()
                 row += '<td>'+email+'</td>';
                 row += '<td>'+phoneDash+'</td>';
                 row += '<td>'+birthday+'</td>';
-                row += "<td><button type='button' name='delete' class='editButton btn' value='" + id + "'>Delete</button></td>";
+                row += "<td><button type='button' name='delete' class='deleteButton btn' value='" + id + "'>Delete</button></td>";
+                row += "<td><button type='button' name='edit' class='editButton btn' value='" + id + "'>Edit</button></td>";
                 row += "</tr>";
                 $("#datatable tbody").append(row);
             }
-            var buttons = $(".editButton");
-            buttons.on("click", deleteItem);
-            buttons.on("click", jqueryPostDelete);
+            var deleteButton = $(".deleteButton");
+            deleteButton.on("click", deleteItem);
+            deleteButton.on("click", jqueryPostDelete);
+            var editButton = $(".editButton");
+            editButton.on("click", editItem);
+            editButton.on("click", showDialogEdit);
         }
     )
 }
@@ -56,6 +65,7 @@ function showDialogAdd() {
     // Print that we got here
     console.log("Opening add item dialog");
 
+    $('#id').val("");
     $('#firstName').val("");
     $('#lastName').val("");
     $('#email').val("");
@@ -264,13 +274,14 @@ function jqueryPostAdd() {
     if (validate()==true)
     {
         var url = "api/name_list_edit";
+        var id = $('#id').val();
         var firstName = $("#firstName").val();
         var lastName = $("#lastName").val();
         var email = $("#email").val();
         var phone = $("#phone").val();
         var birthday = $("#birthday").val();
 
-        var dataToServer = {firstName : firstName,  lastName : lastName, email : email, phone : phone, birthday : birthday}
+        var dataToServer = {id : id, firstName : firstName,  lastName : lastName, email : email, phone : phone, birthday : birthday}
         console.log(dataToServer);
 
         $.post(url, dataToServer, function (dataFromServer) {
@@ -299,5 +310,50 @@ function jqueryPostDelete(e) {
             console.log(dataFromServer);
         });
 }
+
+function showDialogEdit(e) {
+    var id = e.target.value;
+    var firstName = e.target.parentNode.parentNode.querySelectorAll("td")[1].innerHTML;
+    var lastName = e.target.parentNode.parentNode.querySelectorAll("td")[2].innerHTML;
+    var email = e.target.parentNode.parentNode.querySelectorAll("td")[3].innerHTML;
+    var phone = e.target.parentNode.parentNode.querySelectorAll("td")[4].innerHTML;
+    var birthday = e.target.parentNode.parentNode.querySelectorAll("td")[5].innerHTML;
+
+    $('#id').val(id);
+    $('#firstName').val(firstName);
+    $('#lastName').val(lastName);
+    $('#email').val(email);
+    $('#phone').val(phone);
+    $('#birthday').val(birthday);
+
+    $('#firstNameDiv').removeClass("has-error");
+    $('#firstNameGlyph').removeClass("glyphicon-remove");
+    $('#firstNameDiv').removeClass("has-success");
+    $('#firstNameGlyph').removeClass("glyphicon-ok");
+
+    $('#lastNameDiv').removeClass("has-error");
+    $('#lastNameGlyph').removeClass("glyphicon-remove");
+    $('#lastNameDiv').removeClass("has-success");
+    $('#lastNameGlyph').removeClass("glyphicon-ok");
+
+    $('#emailDiv').removeClass("has-error");
+    $('#emailGlyph').removeClass("glyphicon-remove");
+    $('#emailDiv').removeClass("has-success");
+    $('#emailGlyph').removeClass("glyphicon-ok");
+
+    $('#phoneDiv').removeClass("has-error");
+    $('#phoneGlyph').removeClass("glyphicon-remove");
+    $('#phoneDiv').removeClass("has-success");
+    $('#phoneGlyph').removeClass("glyphicon-ok");
+
+    $('#birthdayDiv').removeClass("has-error");
+    $('#birthdayGlyph').removeClass("glyphicon-remove");
+    $('#birthdayDiv').removeClass("has-success");
+    $('#birthdayGlyph').removeClass("glyphicon-ok");
+
+    // Show the hidden dialog
+    $('#myModal').modal('show');
+}
+
 
 

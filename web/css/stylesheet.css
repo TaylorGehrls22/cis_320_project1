@@ -1,0 +1,158 @@
+@charset "UTF-8";
+.navbar.navbar-default {
+	background-color: #FFFFFF;
+}
+.navbar-collapse {
+	background-color: #FFFFFF;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	text-align:center;
+	color: #FFFFFF;
+}
+.nav.navbar-nav li a {
+	color: #1B1464;
+}
+.nav.navbar-nav li a:hover  {
+	color: #B0B0B0;
+}
+.nav.navbar-nav li .active {
+	background-color: #0D0931;
+	color: #1B1464;
+}
+
+p a:hover  {
+	color: #B0B0B0;
+}
+
+header {
+	padding-bottom: 20px;
+}
+
+div {
+	display:block;
+}
+
+h4 {
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	.navbar-nav {
+		float:none;
+		margin:0 auto;
+		display: block;
+		text-align:center;
+	}
+
+	.navbar-nav>li {
+		display:inline-block;
+		float:none;
+	}
+}
+
+.section-banner {
+	background-color: #1B1464;
+	color:white;
+}
+
+.footer {
+	background-color: #1B1464;
+}
+
+.image-banner {
+	margin: auto;
+	padding: 10px 50px;
+}
+
+.footer-image{
+	margin: auto;
+	padding: 10px;
+}
+
+.p-banner {
+	padding: 100px 50px 100px 100px;
+}
+
+.resume-banner {
+	padding: 25px;
+}
+
+.resume-banner-whitetop {
+	padding: 25px 25px 1px 25px;
+}
+
+.resume-banner-whitebottom {
+	padding: 1px 25px 25px 25px;
+}
+
+.title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.tag-line {
+	text-align: center;
+	font-style: italic;
+	font-size: 22px;
+	color: #1B1464;
+}
+
+.about {
+	font-size: 16px;
+	font-style: bold;
+}
+
+.section-info-icons {
+	text-align: center;
+	font-weight: bold;
+}
+
+.section-info {
+	padding-bottom: 10px;
+}
+
+.col-centered{
+	float: none;
+	margin: 0 auto;
+}
+
+.icon-bordered {
+	padding: 10px;
+}
+
+.gallery-main {
+	padding-top: 30px;
+}
+
+.gallery-text {
+	padding-top: 100px;
+	text-align: center;
+	font-style: italic;
+	font-size: 28px;
+	color: #1B1464;
+}
+
+.social-media-icons {
+	text-align: center;
+}
+
+.about-list li:before {
+	font-family: 'FontAwesome';
+	content: "\f058";
+	margin:0 5px 0 -25px;
+	color: #1B1464;
+	font-size: 24px;
+}
+
+.icon-center{
+	text-align: center;
+}
+
+.icon-left{
+	text-align: left;
+}
+
+.icon-right{
+	text-align: right;
+}
